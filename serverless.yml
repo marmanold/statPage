@@ -28,7 +28,7 @@ functions:
     events:
       - http:
           path: updateStat
-          method: put
+          method: post
           cors: true
   currStat:
     handler: handler.currStat

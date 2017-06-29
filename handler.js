@@ -7,28 +7,27 @@ module.exports.updateStat = (event, context, callback) => {
 
   const data = JSON.parse(event.body);
 
-  if (typeof data.text !== 'string' || typeof data.checked !== 'boolean') {
+  if (typeof data.status !== 'string' && (data.status != 'free' || data.status != 'busy')) {
     console.error('Validation Failed');
-    callback(new Error('Couldn\'t update status.'));
+    callback(new Error('Couldn\'t update status because it was not a valid string.'));
     return;
   }
 
   const response = {
     statusCode: 200,
     body: JSON.stringify({
-      message: 'Status has been updated sucessfully!',
+      message: 'Status has been updated successfully!',
       input: event,
     }),
   };
 
-  console.log(`Current status is: ${statData.status}`);
-    s3.putObject({
-      Bucket: process.env.BUCKET,
-      Key: "status.json",
-      Body: `{"status":"${data.status}"}`,
-    }).promise();
-    console.log(`New status is ${data.status}`);
-    callback(null, response);
+  s3.putObject({
+    Bucket: process.env.BUCKET,
+    Key: "status.json",
+    Body: `{"status":"${data.status}"}`,
+  }).promise();
+  console.log(`New status is ${data.status}`);
+  callback(null, response);
 
 };
 
@@ -36,7 +35,7 @@ module.exports.toggleStat = (event, context, callback) => {
   const response = {
     statusCode: 200,
     body: JSON.stringify({
-      message: 'Status has been updated sucessfully!',
+      message: 'Status has been updated successfully!',
       input: event,
     }),
   };
