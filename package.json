@@ -8,5 +8,8 @@
     "type": "git",
     "url": "https://github.com/marmanold/statPage.git"
   },
+  "devDependencies": {
+    "serverless": "^1.23.0"
+  },
   "dependencies": {}
 }

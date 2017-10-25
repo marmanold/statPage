@@ -1,7 +1,10 @@
+/*jslint esversion: 6*/
+/*jslint node: true*/
 'use strict';
 
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
+const sns = new AWS.SNS();
 
 module.exports.updateStat = (event, context, callback) => {
 
@@ -26,6 +29,12 @@ module.exports.updateStat = (event, context, callback) => {
     Key: "status.json",
     Body: `{"status":"${data.status}"}`,
   }).promise();
+
+  sns.publish({
+    Message: JSON.stringify(`Michael is now ${data.status.toUpperCase()}.`), 
+    TopicArn: process.env.TOPIC
+  }).promise();
+  
   console.log(`New status is ${data.status}`);
   callback(null, response);
 
@@ -53,6 +62,11 @@ module.exports.toggleStat = (event, context, callback) => {
 
     const statDataStr = data["Body"].toString();
     const statData = JSON.parse(statDataStr);
+
+    sns.publish({
+      Message: JSON.stringify(`Michael is now ${statData.status.toUpperCase()}.`), 
+      TopicArn: process.env.TOPIC
+    }).promise();
 
     console.log(`Current status is: ${statData.status}`);
 
