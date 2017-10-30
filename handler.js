@@ -63,12 +63,9 @@ module.exports.toggleStat = (event, context, callback) => {
     const statDataStr = data["Body"].toString();
     const statData = JSON.parse(statDataStr);
 
-    sns.publish({
-      Message: JSON.stringify(`Michael is now ${statData.status.toUpperCase()}.`), 
-      TopicArn: process.env.TOPIC
-    }).promise();
-
     console.log(`Current status is: ${statData.status}`);
+
+    let newStatus = 'unknown';
 
     if (statData.status == "busy") {
       s3.putObject({
@@ -76,6 +73,8 @@ module.exports.toggleStat = (event, context, callback) => {
         Key: "status.json",
         Body: `{"status":"free"}`,
       }).promise();
+
+      newStatus = 'free';
       console.log("New status is free");
       callback(null, response);
     }
@@ -85,9 +84,16 @@ module.exports.toggleStat = (event, context, callback) => {
         Key: "status.json",
         Body: `{"status":"busy"}`,
       }).promise();
+
+      newStatus = 'busy';
       console.log("New status is busy");
       callback(null, response);
     }
+
+    sns.publish({
+      Message: JSON.stringify(`Michael is now ${newStatus.toUpperCase()}.`), 
+      TopicArn: process.env.TOPIC
+    }).promise();
 
   });
 };
