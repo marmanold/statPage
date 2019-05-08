@@ -9,7 +9,7 @@
     "url": "https://github.com/marmanold/statPage.git"
   },
   "devDependencies": {
-    "serverless": "^1.23.0"
+    "serverless": "^1.41.1"
   },
   "dependencies": {}
 }
