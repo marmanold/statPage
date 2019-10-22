@@ -1,6 +1,6 @@
 {
   "name": "statPage",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Serverless function to notify folk of my availability status.",
   "author": "Michael Arnold <michael@rnold.info> (https://www.marmanold.com)",
   "license": "MIT",
@@ -9,7 +9,9 @@
     "url": "https://github.com/marmanold/statPage.git"
   },
   "devDependencies": {
-    "serverless": "^1.41.1"
+    "serverless": "^1.54.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "aws-sdk": "^2.553.0"
+  }
 }
