@@ -31,10 +31,10 @@ module.exports.updateStat = (event, context, callback) => {
   }).promise();
 
   sns.publish({
-    Message: JSON.stringify(`Michael is now ${data.status.toUpperCase()}.`), 
+    Message: JSON.stringify(`Michael is now ${data.status.toUpperCase()}.`),
     TopicArn: process.env.TOPIC
   }).promise();
-  
+
   console.log(`New status is ${data.status}`);
   callback(null, response);
 
@@ -50,8 +50,8 @@ module.exports.toggleStat = (event, context, callback) => {
   };
 
   s3.getObject({
-    Bucket: process.env.BUCKET, 
-    Key: "status.json", 
+    Bucket: process.env.BUCKET,
+    Key: "status.json",
 
   }, function(error, data) {
     if (error) {
@@ -91,7 +91,7 @@ module.exports.toggleStat = (event, context, callback) => {
     }
 
     sns.publish({
-      Message: JSON.stringify(`Michael is now ${newStatus.toUpperCase()}.`), 
+      Message: JSON.stringify(`Michael is now ${newStatus.toUpperCase()}.`),
       TopicArn: process.env.TOPIC
     }).promise();
 
@@ -101,8 +101,8 @@ module.exports.toggleStat = (event, context, callback) => {
 module.exports.currStat = (event, context, callback) => {
 
   s3.getObject({
-    Bucket: process.env.BUCKET, 
-    Key: "status.json", 
+    Bucket: process.env.BUCKET,
+    Key: "status.json",
 
   }, function(error, data) {
     if (error) {
@@ -126,15 +126,18 @@ module.exports.currStat = (event, context, callback) => {
             .busy {
               background-color: red;
             }
+
             .free {
               background-color: green;
             }
+
             p {
               color: white;
               font-family: "Helvetica", "Arial", sans-serif;
               font-size: 48pt;
               font-size: 25vw;
             }
+
             .center {
               position:absolute;
               top:50%;
@@ -143,6 +146,16 @@ module.exports.currStat = (event, context, callback) => {
               -ms-transform: translateX(-50%) translateY(-50%);
               -webkit-transform: translate(-50%,-50%);
               transform: translate(-50%,-50%);
+            }
+
+            body {
+              overflow: hidden;
+              scrollbar-width: none;
+              -ms-overflow-style: none;
+            }
+
+            body::-webkit-scrollbar {
+              display: none;
             }
           </style>
         </head>
