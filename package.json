@@ -9,7 +9,7 @@
     "url": "https://github.com/marmanold/statPage.git"
   },
   "devDependencies": {
-    "serverless": "^1.67.0"
+    "serverless": "^1.75.1"
   },
   "dependencies": {
     "aws-sdk": "^2.646.0"
