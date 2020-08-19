@@ -12,6 +12,6 @@
     "serverless": "^1.67.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.646.0"
+    "aws-sdk": "^2.736.0"
   }
 }
